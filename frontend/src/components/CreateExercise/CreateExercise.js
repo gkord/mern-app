@@ -75,7 +75,7 @@ const CreateExercise = () => {
         </FormGroup>
 
         <FormGroup>
-          <Button type="submit">Create Exercise</Button>
+          <Button type="submit" dark>Create Exercise</Button>
         </FormGroup>
       </form>
     </div>
