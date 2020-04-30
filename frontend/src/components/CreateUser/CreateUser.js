@@ -4,6 +4,7 @@ import {
   FormGroup,
   FormControl,
 } from 'styled-bootstrap-components';
+import axios from 'axios';
 
 const CreateUser = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +18,11 @@ const CreateUser = () => {
 
     console.log(user);
 
-    setUsername('')
+    axios
+      .post('http://localhost:5000/users/add', user)
+      .then((res) => console.log(res.data));
+
+    setUsername('');
   };
 
   return (
@@ -33,7 +38,9 @@ const CreateUser = () => {
           />
         </FormGroup>
         <FormGroup>
-          <Button type="submit" dark>Create User</Button>
+          <Button type="submit" dark>
+            Create User
+          </Button>
         </FormGroup>
       </form>
     </div>
