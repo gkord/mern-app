@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  FormGroup,
-  FormControl,
-  FormText,
-  Dropdown,
-  DropdownDivider,
-  DropdownItem,
-  DropdownMenu,
-} from 'styled-bootstrap-components';
+import { Button, FormGroup, FormControl } from 'styled-bootstrap-components';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateExercise = () => {
   const [username, setUsername] = useState('');
@@ -16,34 +9,73 @@ const CreateExercise = () => {
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const [users, setUsers] = useState([]);
-  const [hidden, setHidden] = useState(true);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const exercise = {
+      username,
+      description,
+      duration,
+      date,
+    };
+
+    console.log(exercise);
+
+    window.location = '/';
+  };
 
   return (
     <div>
       <h3>Create New Exercise Log</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <FormGroup>
           <label>Username</label>
-          <Dropdown>
-            <Button
-              dropdownToggle
-              onClick={() => setHidden(!hidden)}
-            >
-              Dropdown Button
-            </Button>
-            <DropdownMenu
-              hidden={hidden}
-              toggle={() => setHidden(!hidden)}
-            >
-              <DropdownItem>Action</DropdownItem>
-              <DropdownItem>Another action</DropdownItem>
-              <DropdownDivider />
-              <DropdownItem>Action after divider</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <FormText muted>
-            We&#39;ll never share your email with anyone else.
-          </FormText>
+          <FormControl
+            select
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          >
+            {users.map((user) => {
+              return (
+                <option value={user} key={user}>
+                  {user}
+                </option>
+              );
+            })}
+          </FormControl>
+        </FormGroup>
+
+        <FormGroup>
+          <label>Description</label>
+          <FormControl
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <label>Duration (in mins)</label>
+          <FormControl
+            type="text"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <label>Date</label>
+          <div>
+            <DatePicker
+              selected={date}
+              onChange={(date) => setDate(date)}
+            />
+          </div>
+        </FormGroup>
+
+        <FormGroup>
+          <Button type="submit">Create Exercise</Button>
         </FormGroup>
       </form>
     </div>
