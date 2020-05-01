@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Table, Tr } from 'styled-bootstrap-components';
 import axios from 'axios';
 
-const ExerciseList = () => {
+const ExercisesList = () => {
   // State
   const [exercises, setExercises] = useState([]);
 
@@ -71,4 +71,4 @@ const ExerciseList = () => {
   );
 };
 
-export default ExerciseList;
+export default ExercisesList;
