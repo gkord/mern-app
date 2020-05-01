@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
-import { Button, FormGroup, FormControl } from 'styled-bootstrap-components';
+import React, { useState, useEffect } from 'react';
+import {
+  Button,
+  FormGroup,
+  FormControl,
+} from 'styled-bootstrap-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 const CreateExercise = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +14,21 @@ const CreateExercise = () => {
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      await axios
+        .get('http://localhost:5000/users/')
+        .then((res) => {
+          if (res.data.length > 0) {
+            setUsers(res.data.map((user) => user.username));
+            setUsername(res.data[0].username);
+          }
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchUsers();
+  }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +42,11 @@ const CreateExercise = () => {
 
     console.log(exercise);
 
+    axios
+      .post('http://localhost:5000/exercises/add', exercise)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+      
     window.location = '/';
   };
 
@@ -75,7 +100,9 @@ const CreateExercise = () => {
         </FormGroup>
 
         <FormGroup>
-          <Button type="submit" dark>Create Exercise</Button>
+          <Button type="submit" dark>
+            Create Exercise
+          </Button>
         </FormGroup>
       </form>
     </div>
