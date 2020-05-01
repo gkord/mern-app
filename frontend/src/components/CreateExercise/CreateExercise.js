@@ -78,6 +78,7 @@ const CreateExercise = () => {
           <FormControl
             type="text"
             value={duration}
+            placeholder={duration}
             onChange={(e) => setDuration(e.target.value)}
           />
         </FormGroup>

@@ -55,6 +55,10 @@ const EditExercise = ({ match }) => {
     window.location = '/';
   };
 
+  const handleCancel = () => {
+    window.location = '/';
+  };
+
   return (
     <div>
       <h3>Create New Exercise Log</h3>
@@ -101,9 +105,12 @@ const EditExercise = ({ match }) => {
           </div>
         </FormGroup>
 
-        <FormGroup>
-          <Button type="submit" dark>
+        <FormGroup formInline>
+          <Button type="submit" dark mr2>
             Edit Exercise
+          </Button>
+          <Button type="reset" onClick={handleCancel} dark>
+            Cancel
           </Button>
         </FormGroup>
       </form>
