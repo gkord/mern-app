@@ -9,7 +9,6 @@ const EditExercise = ({ match }) => {
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
@@ -20,16 +19,6 @@ const EditExercise = ({ match }) => {
         setDuration(res.data.duration);
         setDate(new Date(res.data.date));
       });
-
-    axios
-      .get('http://localhost:5000/users/')
-      .then((res) => {
-        if (res.data.length > 0) {
-          setUsers(res.data.map((user) => user.username));
-          setUsername(res.data[0].username);
-        }
-      })
-      .catch((err) => console.log(err));
   }, [match.params.id]);
 
   const onSubmit = (e) => {
@@ -61,23 +50,11 @@ const EditExercise = ({ match }) => {
 
   return (
     <div>
-      <h3>Create New Exercise Log</h3>
+      <h3>Edit Exercise Log</h3>
       <form onSubmit={onSubmit}>
         <FormGroup>
           <label>Username</label>
-          <FormControl
-            select
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          >
-            {users.map((user) => {
-              return (
-                <option value={user} key={user}>
-                  {user}
-                </option>
-              );
-            })}
-          </FormControl>
+          <FormControl type="text" value={username} disabled />
         </FormGroup>
 
         <FormGroup>

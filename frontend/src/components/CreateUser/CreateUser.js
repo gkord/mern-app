@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  FormGroup,
-  FormControl,
-} from 'styled-bootstrap-components';
+import { Button, FormGroup, FormControl } from 'styled-bootstrap-components';
 import axios from 'axios';
 
 const CreateUser = () => {
@@ -36,6 +32,7 @@ const CreateUser = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </FormGroup>
         <FormGroup>
